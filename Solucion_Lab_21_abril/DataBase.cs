@@ -9,7 +9,7 @@ namespace Solucion_Lab_21_abril
 
         // Diccionario para guardar todos los registros
         // Los datos de cada registro se guardan en List<string> con formato [usuario, correo, password, linkVerificacion, fecha, numero]
-        private Dictionary<int, List<string>> registered;
+        private Dictionary<int, List<string>> registered; // int Sirve para identificar los usuarios.
 
         // Constructor
         public DataBase()
@@ -32,10 +32,10 @@ namespace Solucion_Lab_21_abril
         // Metodo para agregar un nuevo usuario, verificando ademas que no exista
         public string AddUser(List<string> data)
         {
-            string description = null;
+            string description = null; //Simplemente para usarla despues.
             foreach (List<string> value in this.registered.Values)
             {
-                if (data[0] == value[0])
+                if (data[0] == value[0])// Nombre de usuario de los datos que me pasaron.
                 {
                     description = "El nombre de usuario especificado ya existe";
                 }
@@ -46,7 +46,7 @@ namespace Solucion_Lab_21_abril
             }
             if (description == null)
             {
-                this.registered.Add(registered.Count + 1, data);
+                this.registered.Add(registered.Count + 1, data); // SE le pone el +1 por comodidad.
             }
             return description;
         }

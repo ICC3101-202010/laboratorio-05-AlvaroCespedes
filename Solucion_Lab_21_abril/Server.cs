@@ -7,8 +7,11 @@ namespace Solucion_Lab_21_abril
 {
     public class Server
     {
+        //SERVER VA A SABER CUANDO UNA PERSONA SE REGISTRA. EL SERVER DEBE PUBLICAR EL EVENTO.
+        // Los eventos sirven para que clases no se conocen se puedan comunicar entre si.
         // Paso 1: Creamos el delegate para el evento del registro
-        public delegate void RegisterEventHandler(object source, RegisterEventArgs args);
+        public delegate void RegisterEventHandler(object source, RegisterEventArgs args); //RegisterEventArgs -- > los parametros del evento. Crear otra clase.
+        //Primer Parametro --> Quien poublica el evento. Segundo --> quienes son los parametros imporatntes para el evento. 
         // Paso 2: Creamos el evento que se engatilla cuando el usuario se registra
         public event RegisterEventHandler Registered;
         // Paso 3: Publicamos el evento. Notar que cuando se quiere engatillar el evento, se llama OnRegistered(). 
@@ -16,7 +19,7 @@ namespace Solucion_Lab_21_abril
         // de la clase  RegisterEventArgs
         protected virtual void OnRegistered(string username, string password, string verificationlink, string email)
         {
-            // Verifica si hay alguien suscrito al evento
+            // Verifica si hay alguien suscrito al evento. Si existe alguien que le importe el evento para que sea disparado.
             if (Registered != null)
             {
                 // Engatilla el evento
@@ -72,6 +75,7 @@ namespace Solucion_Lab_21_abril
             {
                 // Disparamos el evento
                 OnRegistered(usr, psswd, verificationlink: verificationLink, email: email);
+                //Se logro registrar. Solo luego de lograr registrarlo en la base de datos.
             }
             else
             {
@@ -119,6 +123,11 @@ namespace Solucion_Lab_21_abril
                 result += rndom;
             }
             return "http://pluscorporation.com/verificar-correo.php?=" + usr + "_" + result;
+        }
+
+        public void OnMailVerified()
+        {
+            Console.WriteLine("Se ha verificado correctamente el correo.");
         }
 
     }
