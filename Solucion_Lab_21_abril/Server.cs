@@ -125,7 +125,7 @@ namespace Solucion_Lab_21_abril
             return "http://pluscorporation.com/verificar-correo.php?=" + usr + "_" + result;
         }
 
-        public void OnMailVerified()
+        public void OnMailVerified(object source, EventArgs args)
         {
             Console.WriteLine("Se ha verificado correctamente el correo.");
         }

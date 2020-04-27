@@ -11,19 +11,25 @@ namespace Solucion_Lab_21_abril
             // Creamos todos los objetos necesarios
             DataBase database = new DataBase();
             Server server = new Server(database);
-            MailSender mailSender = new MailSender();
-            SMSSender smsSender = new SMSSender();
+            MailSender mailSender = new MailSender(); 
+            SMSSender smsSender = new SMSSender(); // Envia mensajes.
+            User user = new User();
 
 
             //Suscribir los que escuchan los eventos
             // Notar que para poder realizar las suscripciones es necesario tener instancias de las clases, y que los parametros
             // del evento y del metodo que se le suscribe deben ser igual (object y eventargs)
             //1- Suscribir OnRegistrado de mailSender para que escuche el evento Registrado enviado por servidor
+            //Suscribir este evento a este metodo de aca.
             server.Registered += mailSender.OnRegistered;
             //2- Suscribir OnCambiadaContrasena de mailSender para que escuche el evento CambiadaContrasena enviado por servidor
             server.PasswordChanged += mailSender.OnPasswordChanged;
             //3- Suscribir OnCambiadaContrasena de smsSender para que escuche el evento CambiadaContrasena enviado por servidor
             server.PasswordChanged += smsSender.OnPasswordChanged;
+            //Se envia mensaje cuando se cambia la contraseña.
+
+            mailSender.EmailSent += user.OnMailSent;
+            user.EmailVerified += server.OnMailVerified;
 
 
             // Controla la ejecucion mientras el usuario no quiera salir
